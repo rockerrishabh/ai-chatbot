@@ -3,6 +3,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import Header from "@/components/Header";
 import { poppins } from "@/utils/fonts";
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +17,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${poppins.className} dark:bg-neutral-900`}>
+      <body
+        className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+          poppins.variable
+        )}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
