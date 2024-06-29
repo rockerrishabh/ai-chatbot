@@ -1,6 +1,6 @@
 "use server";
 
-import * as argon2 from "argon2";
+import bcrypt from "bcrypt";
 import { db } from "@/db";
 import { signUpSchema, type SignUpSchema } from "@/schemas/authSchema";
 import { eq } from "drizzle-orm";
@@ -17,9 +17,9 @@ export const signUp = async (values: SignUpSchema) => {
 
   const { name, email, password } = parsed.data;
 
-  const hashedPassword = await argon2.hash(password, {
-    hashLength: 32,
-  });
+  const salt = await bcrypt.genSalt(10);
+
+  const hashedPassword = await bcrypt.hash(password, salt);
 
   const existingUser = await db.query.users.findFirst({
     where: eq(users.email, email),
