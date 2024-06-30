@@ -1,6 +1,6 @@
 "use server";
 
-import bcrypt from "bcrypt";
+import bcryptjs from "bcryptjs";
 import { db } from "@/db";
 import { signUpSchema, type SignUpSchema } from "@/schemas/authSchema";
 import { eq } from "drizzle-orm";
@@ -17,9 +17,9 @@ export const signUp = async (values: SignUpSchema) => {
 
   const { name, email, password } = parsed.data;
 
-  const salt = await bcrypt.genSalt(10);
+  const salt = await bcryptjs.genSalt(10);
 
-  const hashedPassword = await bcrypt.hash(password, salt);
+  const hashedPassword = await bcryptjs.hash(password, salt);
 
   const existingUser = await db.query.users.findFirst({
     where: eq(users.email, email),

@@ -96,9 +96,10 @@ function SignUpForm() {
         {error && <FormError message={error} />}
         {success && <FormSuccess message={success} />}
         <Button
+          disabled={isPending}
           className="w-full bg-indigo-500/90 text-white hover:bg-indigo-500"
           type="submit">
-          Sign Up
+          {isPending ? "Loading..." : "Sign Up"}
         </Button>
       </form>
       <p className="text-center mt-4 mb-2">Or Sign Up with</p>
