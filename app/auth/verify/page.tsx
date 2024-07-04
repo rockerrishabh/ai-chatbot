@@ -3,6 +3,7 @@
 import { verify } from "@/actions/verify";
 import FormError from "@/components/auth/FormError";
 import FormSuccess from "@/components/auth/FormSuccess";
+import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
@@ -65,9 +66,9 @@ function Verify() {
         <p>
           You will be redirected to the dashboard in {redirectCountdown}{" "}
           seconds. You can also{" "}
-          <a href="/dashboard" onClick={(e) => e.preventDefault()}>
+          <Link href="/auth/sign-in" onClick={(e) => e.preventDefault()}>
             click here
-          </a>{" "}
+          </Link>{" "}
           to redirect immediately.
         </p>
       )}
