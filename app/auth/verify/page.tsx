@@ -1,3 +1,5 @@
+"use client";
+
 import { verify } from "@/actions/verify";
 import FormError from "@/components/auth/FormError";
 import FormSuccess from "@/components/auth/FormSuccess";
