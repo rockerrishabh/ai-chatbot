@@ -5,8 +5,6 @@ import { db } from "@/db";
 import { signUpSchema, type SignUpSchema } from "@/schemas/authSchema";
 import { eq } from "drizzle-orm";
 import { users } from "@/schemas/dbSchema";
-import { verificationTemplate } from "@/mail/verificationTemplate";
-import { sendMail } from "@/lib/mailer";
 import { generateVerificationToken } from "@/utils/generateVerificationToken";
 
 export const signUp = async (values: SignUpSchema) => {
