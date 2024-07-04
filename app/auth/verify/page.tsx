@@ -1,9 +1,7 @@
-"use client";
-
 import { verify } from "@/actions/verify";
 import FormError from "@/components/auth/FormError";
 import FormSuccess from "@/components/auth/FormSuccess";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
 function Verify() {
@@ -11,6 +9,9 @@ function Verify() {
   const [isLoading, setIsLoading] = useState(true); // Initial loading state
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
+  const [redirectCountdown, setRedirectCountdown] = useState(5);
+  const navigate = useRouter();
+
   const token = params.get("token");
 
   const verifyUser = useCallback(async () => {
@@ -27,15 +28,27 @@ function Verify() {
       setError("An error occurred during verification. Please try again.");
     } finally {
       setIsLoading(false);
+      const timer = setTimeout(() => {
+        navigate.push("/dashboard");
+      }, 5000);
+      const interval = setInterval(() => {
+        setRedirectCountdown((prevCount) =>
+          prevCount > 0 ? prevCount - 1 : 0
+        );
+      }, 1000);
+      return () => {
+        clearTimeout(timer);
+        clearInterval(interval);
+      };
     }
-  }, [token]);
+  }, [token, navigate]);
 
   useEffect(() => {
     verifyUser();
   }, [verifyUser]);
 
   return (
-    <section className="flex justify-center items-center">
+    <section className="flex justify-center items-center mt-20">
       {isLoading && (
         <div className="flex space-x-2 justify-center items-center bg-white dark:invert">
           <span className="sr-only">Loading...</span>
@@ -46,6 +59,16 @@ function Verify() {
       )}
       <FormSuccess message={success} />
       <FormError message={error} />
+      {success && (
+        <p>
+          You will be redirected to the dashboard in {redirectCountdown}{" "}
+          seconds. You can also{" "}
+          <a href="/dashboard" onClick={(e) => e.preventDefault()}>
+            click here
+          </a>{" "}
+          to redirect immediately.
+        </p>
+      )}
     </section>
   );
 }
