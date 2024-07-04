@@ -4,10 +4,11 @@ import { signInSchema, type SignInSchema } from "@/schemas/authSchema";
 import { signIn as nextAuthSignIn } from "@/auth";
 import { AuthError } from "next-auth";
 import { eq } from "drizzle-orm";
-import { users } from "@/schemas/dbSchema";
+import { users, verificationTokens } from "@/schemas/dbSchema";
 import { db } from "@/db";
 import { sendMail } from "@/lib/mailer";
 import { verificationTemplate } from "@/mail/verificationTemplate";
+import { generateVerificationToken } from "@/utils/generateVerificationToken";
 
 export const signIn = async (values: SignInSchema) => {
   const parsed = signInSchema.safeParse(values);
@@ -22,16 +23,17 @@ export const signIn = async (values: SignInSchema) => {
     where: eq(users.email, parsed.data.email),
   });
 
+  if (!existingUser) {
+    return {
+      error: "User does not exists!",
+    };
+  }
+
   if (!existingUser?.emailVerified) {
-    const verificationToken = crypto.randomUUID();
-
-    const { html, subject, email } = verificationTemplate({
-      name: existingUser?.name!,
-      email: existingUser?.email!,
-      verificationToken,
-    });
-
-    const res = await sendMail({ html, subject, to: email });
+    const res = await generateVerificationToken(
+      existingUser?.name,
+      existingUser?.email
+    );
 
     if (!res?.messageId) {
       return {

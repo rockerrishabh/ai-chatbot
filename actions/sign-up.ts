@@ -5,6 +5,8 @@ import { db } from "@/db";
 import { signUpSchema, type SignUpSchema } from "@/schemas/authSchema";
 import { eq } from "drizzle-orm";
 import { users } from "@/schemas/dbSchema";
+import { verificationTemplate } from "@/mail/verificationTemplate";
+import { sendMail } from "@/lib/mailer";
 
 export const signUp = async (values: SignUpSchema) => {
   const parsed = signUpSchema.safeParse(values);
@@ -31,6 +33,18 @@ export const signUp = async (values: SignUpSchema) => {
     };
   }
 
+  const verificationToken = crypto.randomUUID();
+
+  const {
+    html,
+    subject,
+    email: to,
+  } = verificationTemplate({
+    name: name,
+    email: email,
+    verificationToken,
+  });
+
   const newUser = await db
     .insert(users)
     .values({ name, email, password: hashedPassword })
@@ -42,7 +56,15 @@ export const signUp = async (values: SignUpSchema) => {
     };
   }
 
+  const res = await sendMail({ html, subject, to });
+
+  if (!res?.messageId) {
+    return {
+      error: "Error while sending Verification Mail!",
+    };
+  }
+
   return {
-    success: "Successfully signed up!",
+    success: "Successfully sent Verification Mail!",
   };
 };
