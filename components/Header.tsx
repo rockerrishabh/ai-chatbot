@@ -51,7 +51,7 @@ async function Header() {
               )}
               <Link
                 className="hidden md:flex hover:text-indigo-500/90 py-2 px-4 rounded-md border hover:border-indigo-500/90"
-                href={session ? "/auth/dashboard" : "/auth/sign-up"}>
+                href={session ? "/dashboard" : "/auth/sign-up"}>
                 {session ? "Dashboard" : "Sign Up"}
               </Link>
 

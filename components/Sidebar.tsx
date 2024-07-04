@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/drawer";
 import { MenuIcon, XIcon } from "lucide-react";
 import NavLink from "./NavLink";
-import Link from "next/link";
 import { Session } from "next-auth";
 
 type Props = {
@@ -51,7 +50,7 @@ function Sidebar({ session }: Props) {
             )}
             <NavLink
               className="hover:text-indigo-500/90 text-center px-4 py-2 border hover:border-indigo-500/90 rounded"
-              href={session ? "/auth/dashboard" : "/auth/sign-up"}>
+              href={session ? "/dashboard" : "/auth/sign-up"}>
               {session ? "Dashboard" : "Sign Up"}
             </NavLink>
           </ul>
