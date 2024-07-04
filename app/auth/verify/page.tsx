@@ -51,7 +51,7 @@ function Verify() {
   }, [verifyUser]);
 
   return (
-    <section className="flex justify-center items-center mt-20">
+    <section className="flex flex-col gap-5 justify-center items-center mt-20">
       {isLoading && (
         <div className="flex space-x-2 justify-center items-center bg-white dark:invert">
           <span className="sr-only">Loading...</span>
@@ -66,7 +66,10 @@ function Verify() {
         <p>
           You will be redirected to the dashboard in {redirectCountdown}{" "}
           seconds. You can also{" "}
-          <Link href="/auth/sign-in" onClick={(e) => e.preventDefault()}>
+          <Link
+            className="text-indigo-400 hover:text-indigo-500"
+            href="/auth/sign-in"
+            onClick={(e) => e.preventDefault()}>
             click here
           </Link>{" "}
           to redirect immediately.
