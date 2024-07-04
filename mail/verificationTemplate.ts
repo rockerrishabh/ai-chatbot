@@ -9,9 +9,9 @@ export function verificationTemplate({
   email,
   verificationToken,
 }: Props) {
-  const verificationLink =
-    process.env.APP_URL + "/auth/verify/" + verificationToken ||
-    `http://localhost:3000/auth/verify/${verificationToken}`;
+  const verificationLink = process.env.APP_URL
+    ? `${process.env.APP_URL}/auth/verify/${verificationToken}`
+    : `http://localhost:3000/auth/verify/${verificationToken}`;
   const subject = "Verify your Email Address!";
   const html = `<!DOCTYPE html>
 <html lang="en">
