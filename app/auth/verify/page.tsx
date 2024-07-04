@@ -9,7 +9,7 @@ import { useCallback, useEffect, useState } from "react";
 
 function Verify() {
   const params = useSearchParams();
-  const [isLoading, setIsLoading] = useState(true); // Initial loading state
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
   const [redirectCountdown, setRedirectCountdown] = useState(5);
@@ -32,7 +32,7 @@ function Verify() {
     } finally {
       setIsLoading(false);
       const timer = setTimeout(() => {
-        navigate.push("/dashboard");
+        navigate.push("/auth/sign-in");
       }, 5000);
       const interval = setInterval(() => {
         setRedirectCountdown((prevCount) =>
@@ -68,8 +68,7 @@ function Verify() {
           seconds. You can also{" "}
           <Link
             className="text-indigo-400 hover:text-indigo-500"
-            href="/auth/sign-in"
-            onClick={(e) => e.preventDefault()}>
+            href="/auth/sign-in">
             click here
           </Link>{" "}
           to redirect immediately.
