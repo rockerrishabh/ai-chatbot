@@ -20,6 +20,7 @@ import { useState, useTransition } from "react";
 import { signUp } from "@/actions/sign-up";
 import Image from "next/image";
 import Link from "next/link";
+import Socials from "./socials";
 
 function SignUpForm() {
   const [error, setError] = useState<string | undefined>();
@@ -56,7 +57,12 @@ function SignUpForm() {
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input type="text" placeholder="Enter your name" {...field} />
+                <Input
+                  className="focus-visible:ring-indigo-500"
+                  type="text"
+                  placeholder="Enter your name"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -70,7 +76,12 @@ function SignUpForm() {
             <FormItem>
               <FormLabel>Email Address</FormLabel>
               <FormControl>
-                <Input type="email" placeholder="Enter your email" {...field} />
+                <Input
+                  className="focus-visible:ring-indigo-500"
+                  type="email"
+                  placeholder="Enter your email"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -84,6 +95,7 @@ function SignUpForm() {
               <FormLabel>Password</FormLabel>
               <FormControl>
                 <Input
+                  className="focus-visible:ring-indigo-500"
                   type="password"
                   placeholder="Enter your password"
                   {...field}
@@ -93,8 +105,8 @@ function SignUpForm() {
             </FormItem>
           )}
         />
-        {error && <FormError message={error} />}
-        {success && <FormSuccess message={success} />}
+        <FormError message={error} />
+        <FormSuccess message={success} />
         <Button
           disabled={isPending}
           className="w-full bg-indigo-500/90 text-white hover:bg-indigo-500"
@@ -103,16 +115,6 @@ function SignUpForm() {
         </Button>
       </form>
       <p className="text-center mt-4 mb-2">Or Sign Up with</p>
-      <section className="flex justify-center mb-2">
-        <Button type="button" variant="ghost" size="icon">
-          <Image src="/google.svg" alt="Google" height={20} width={20} />
-        </Button>
-      </section>
-      <Link
-        className="text-center block hover:text-indigo-500"
-        href={"/sign-in"}>
-        Already have an Account?
-      </Link>
     </Form>
   );
 }

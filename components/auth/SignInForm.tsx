@@ -17,13 +17,15 @@ import { Button } from "../ui/button";
 import { useState, useTransition } from "react";
 import { signIn } from "@/actions/sign-in";
 import FormError from "./FormError";
-import FormSuccess from "./FormSuccess";
-import Image from "next/image";
-import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 function SignInForm() {
   const [error, setError] = useState<string | undefined>();
-  const [success, setSuccess] = useState<string | undefined>();
+  const searchParams = useSearchParams();
+  const urlError =
+    searchParams.get("error") === "OAuthAccountNotLinked"
+      ? "You Signed Up with different Provider"
+      : "";
 
   const [isPending, startTransition] = useTransition();
 
@@ -38,8 +40,7 @@ function SignInForm() {
   function onSubmit(values: SignInSchema) {
     startTransition(() => {
       signIn(values).then((data) => {
-        setError(data.error);
-        setSuccess(data.success);
+        setError(data?.error);
       });
     });
   }
@@ -54,7 +55,12 @@ function SignInForm() {
             <FormItem>
               <FormLabel>Email Address</FormLabel>
               <FormControl>
-                <Input type="email" placeholder="Enter your email" {...field} />
+                <Input
+                  className="focus-visible:ring-indigo-500"
+                  type="email"
+                  placeholder="Enter your email"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -68,6 +74,7 @@ function SignInForm() {
               <FormLabel>Password</FormLabel>
               <FormControl>
                 <Input
+                  className="focus-visible:ring-indigo-500"
                   type="password"
                   placeholder="Enter your password"
                   {...field}
@@ -77,25 +84,16 @@ function SignInForm() {
             </FormItem>
           )}
         />
-        {error && <FormError message={error} />}
-        {success && <FormSuccess message={success} />}
+        <FormError message={error || urlError} />
+
         <Button
+          disabled={isPending}
           className="w-full bg-indigo-500/90 text-white hover:bg-indigo-500"
           type="submit">
-          Sign In
+          {isPending ? "Loading..." : "Sign In"}
         </Button>
       </form>
       <p className="text-center mt-4 mb-2">Or Sign In with</p>
-      <section className="flex justify-center mb-2">
-        <Button type="button" variant="ghost" size="icon">
-          <Image src="/google.svg" alt="Google" height={20} width={20} />
-        </Button>
-      </section>
-      <Link
-        className="text-center block hover:text-indigo-500"
-        href={"/sign-up"}>
-        Don&apos;t have an Account?
-      </Link>
     </Form>
   );
 }

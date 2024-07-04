@@ -15,6 +15,27 @@
       "when": 1719564514656,
       "tag": "0001_moaning_mandrill",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1719827619648,
+      "tag": "0002_secret_human_torch",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1720081117027,
+      "tag": "0003_busy_mentallo",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1720081208795,
+      "tag": "0004_living_exiles",
+      "breakpoints": true
     }
   ]
 }

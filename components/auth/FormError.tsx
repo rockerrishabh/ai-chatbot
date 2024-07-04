@@ -1,7 +1,7 @@
 import { TriangleAlertIcon } from "lucide-react";
 
 type Props = {
-  message: string;
+  message: string | undefined;
 };
 
 function FormError({ message }: Props) {

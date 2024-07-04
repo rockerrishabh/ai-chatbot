@@ -1,7 +1,7 @@
 import { CheckCircle2Icon } from "lucide-react";
 
 type Props = {
-  message: string;
+  message: string | undefined;
 };
 
 function FormSuccess({ message }: Props) {
