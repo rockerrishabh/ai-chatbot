@@ -17,7 +17,7 @@ function Sidebar() {
       <DrawerTrigger>
         <MenuIcon />
       </DrawerTrigger>
-      <DrawerContent className="flex h-full w-52 right-0">
+      <DrawerContent className="h-full">
         <DrawerHeader>
           <DrawerTitle>Are you absolutely sure?</DrawerTitle>
           <DrawerDescription>This action cannot be undone.</DrawerDescription>
