@@ -40,7 +40,8 @@ export function verificationTemplate({
 </head>
 <body>
     <div class="container">
-        <h1>Welcome to AI ChatBot!</h1>
+        <h1>Dear ${name}</h1>
+        <p>Welcome to AI ChatBot!</p>
         <p>Thank you for signing up. To complete your registration and start enjoying the benefits of your account, please verify your email address.</p>
         <p>Click the button below to confirm your email:</p>
         <a href="${verificationLink}" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #fff; border-radius: 5px;">Verify Email Address</a>
