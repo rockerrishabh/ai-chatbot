@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import Link from "next/link";
 
 type Props = {
@@ -8,9 +9,9 @@ type Props = {
 
 function NavLink({ children, className, href }: Props) {
   return (
-    <li className={className}>
-      <Link href={href}>{children}</Link>
-    </li>
+    <Link href={href}>
+      <li className={className}>{children}</li>
+    </Link>
   );
 }
 

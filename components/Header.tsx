@@ -40,17 +40,17 @@ async function Header() {
             </NavLink>
           </ul>
           <div className="flex items-center space-x-6">
-            <ThemeMenu />
-            <section className="flex items-center space-x-4">
+            <section className="flex px-5 items-center space-x-4">
+              <ThemeMenu />
               {!session && (
                 <Link
-                  className="hover:text-indigo-500/90"
+                  className="hidden md:flex hover:text-indigo-500/90"
                   href={"/auth/sign-in"}>
                   Sign In
                 </Link>
               )}
               <Link
-                className="hover:text-indigo-500/90 py-2 px-4 rounded-md border border-1 hover:border-indigo-500/90"
+                className="hidden md:flex hover:text-indigo-500/90 py-2 px-4 rounded-md border hover:border-indigo-500/90"
                 href={session ? "/auth/dashboard" : "/auth/sign-up"}>
                 {session ? "Dashboard" : "Sign Up"}
               </Link>
@@ -84,7 +84,9 @@ async function Header() {
                       <form
                         action={async () => {
                           "use server";
-                          await signOut();
+                          await signOut({
+                            redirectTo: "/",
+                          });
                         }}>
                         <button type="submit">Sign Out</button>
                       </form>
@@ -92,7 +94,7 @@ async function Header() {
                   </DropdownMenuContent>
                 </DropdownMenu>
               )}
-              <Sidebar />
+              <Sidebar session={session} />
             </section>
           </div>
         </nav>
