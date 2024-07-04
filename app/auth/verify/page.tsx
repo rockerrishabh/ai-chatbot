@@ -35,9 +35,9 @@ function Verify() {
   }, [verifyUser]);
 
   return (
-    <div>
+    <section className="flex justify-center items-center">
       {isLoading && (
-        <div className="flex space-x-2 h-5 w-5 justify-center items-center bg-white dark:invert">
+        <div className="flex space-x-2 justify-center items-center bg-white dark:invert">
           <span className="sr-only">Loading...</span>
           <div className="h-8 w-8 bg-black rounded-full animate-bounce animation-delay:-0.3s"></div>
           <div className="h-8 w-8 bg-black rounded-full animate-bounce animation-delay:-0.15s"></div>
@@ -46,7 +46,7 @@ function Verify() {
       )}
       <FormSuccess message={success} />
       <FormError message={error} />
-    </div>
+    </section>
   );
 }
 
