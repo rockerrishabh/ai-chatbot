@@ -3,7 +3,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { signUpSchema, type SignUpSchema } from "@/schemas/authSchema";
-
 import {
   Form,
   FormControl,
@@ -18,9 +17,6 @@ import FormError from "./FormError";
 import FormSuccess from "./FormSuccess";
 import { useState, useTransition } from "react";
 import { signUp } from "@/actions/sign-up";
-import Image from "next/image";
-import Link from "next/link";
-import Socials from "./socials";
 
 function SignUpForm() {
   const [error, setError] = useState<string | undefined>();

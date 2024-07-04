@@ -42,7 +42,8 @@ export const signIn = async (values: SignInSchema) => {
     }
 
     return {
-      success: "Successfully sent Verification Mail!",
+      success:
+        "Successfully sent Verification Mail! Please verify your account before signing in.",
     };
   }
 
