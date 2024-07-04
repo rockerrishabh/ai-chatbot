@@ -16,7 +16,7 @@ function Verify() {
   const verifyUser = useCallback(async () => {
     if (!token) return;
 
-    setIsLoading(true); // Show loading indicator before verification
+    setIsLoading(true);
 
     try {
       const data = await verify(token);
@@ -26,7 +26,7 @@ function Verify() {
       console.error("Error verifying user:", error);
       setError("An error occurred during verification. Please try again.");
     } finally {
-      setIsLoading(false); // Hide loading indicator after verification
+      setIsLoading(false);
     }
   }, [token]);
 
@@ -37,7 +37,7 @@ function Verify() {
   return (
     <div>
       {isLoading && (
-        <div className="flex space-x-2 justify-center items-center bg-white h-screen dark:invert">
+        <div className="flex space-x-2 h-5 w-5 justify-center items-center bg-white dark:invert">
           <span className="sr-only">Loading...</span>
           <div className="h-8 w-8 bg-black rounded-full animate-bounce animation-delay:-0.3s"></div>
           <div className="h-8 w-8 bg-black rounded-full animate-bounce animation-delay:-0.15s"></div>
