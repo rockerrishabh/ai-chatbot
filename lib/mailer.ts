@@ -9,7 +9,7 @@ type Props = {
 const transporter = nodemailer.createTransport({
   host: process.env.GMAIL_SMTP_HOST,
   port: Number(process.env.GMAIL_SMTP_PORT),
-  secure: true,
+  secure: false,
   auth: {
     user: process.env.GMAIL_SMTP_EMAIL_ADDRESS,
     pass: process.env.GMAIL_SMTP_PASSWORD,
