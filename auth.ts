@@ -39,6 +39,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
   },
   callbacks: {
+    async signIn({ account, user }) {
+      if (account?.provider !== "credentials") return true;
+
+      const existingUser = await db.query.users.findFirst({
+        where: eq(users.email, user.email!),
+      });
+
+      if (!existingUser?.emailVerified) {
+        return false;
+      }
+
+      return true;
+    },
     async jwt({ token }) {
       if (!token.sub) {
         return token;

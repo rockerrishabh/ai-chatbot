@@ -18,9 +18,11 @@ import { useState, useTransition } from "react";
 import { signIn } from "@/actions/sign-in";
 import FormError from "./FormError";
 import { useSearchParams } from "next/navigation";
+import FormSuccess from "./FormSuccess";
 
 function SignInForm() {
   const [error, setError] = useState<string | undefined>();
+  const [success, setSuccess] = useState<string | undefined>();
   const searchParams = useSearchParams();
   const urlError =
     searchParams.get("error") === "OAuthAccountNotLinked"
@@ -41,6 +43,7 @@ function SignInForm() {
     startTransition(() => {
       signIn(values).then((data) => {
         setError(data?.error);
+        setSuccess(data?.success);
       });
     });
   }
@@ -85,7 +88,7 @@ function SignInForm() {
           )}
         />
         <FormError message={error || urlError} />
-
+        <FormSuccess message={success} />
         <Button
           disabled={isPending}
           className="w-full bg-indigo-500/90 text-white hover:bg-indigo-500"
