@@ -9,7 +9,7 @@ function Forgot() {
       </h1>
       <ForgotPasswordForm />
       <Link
-        className="text-center block hover:text-indigo-500"
+        className="text-center mt-4 block hover:text-indigo-500"
         href={"/auth/sign-in"}>
         Back to Login?
       </Link>
