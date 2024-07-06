@@ -7,13 +7,14 @@ import { eq } from "drizzle-orm";
 import { users } from "@/schemas/dbSchema";
 import { db } from "@/db";
 import { generateVerificationToken } from "@/utils/generateVerificationToken";
+import bcryptjs from "bcryptjs";
 
 export const signIn = async (values: SignInSchema) => {
   const parsed = signInSchema.safeParse(values);
 
   if (!parsed.success) {
     return {
-      error: "Invalid email or password",
+      error: "Invalid email or password!",
     };
   }
 
@@ -24,6 +25,21 @@ export const signIn = async (values: SignInSchema) => {
   if (!existingUser) {
     return {
       error: "User does not exists!",
+    };
+  }
+
+  if (!existingUser.password) {
+    return { error: "You used a different provider to Sign Up!." };
+  }
+
+  const comparePassword = await bcryptjs.compare(
+    parsed.data.password,
+    existingUser.password
+  );
+
+  if (!comparePassword) {
+    return {
+      error: "Invalid Password!",
     };
   }
 

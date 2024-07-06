@@ -18,7 +18,10 @@ function Verify() {
   const token = params.get("token");
 
   const verifyUser = useCallback(async () => {
-    if (!token) return;
+    if (!token) {
+      setError("No token received!");
+      return;
+    }
 
     setIsLoading(true);
 
@@ -62,18 +65,19 @@ function Verify() {
       )}
       <FormSuccess message={success} />
       <FormError message={error} />
-      {success && (
-        <p>
-          You will be redirected to the dashboard in {redirectCountdown}{" "}
-          seconds. You can also{" "}
-          <Link
-            className="text-indigo-400 hover:text-indigo-500"
-            href="/auth/sign-in">
-            click here
-          </Link>{" "}
-          to redirect immediately.
-        </p>
-      )}
+      {success ||
+        (error && (
+          <p>
+            You will be redirected to the sign in {redirectCountdown} seconds.
+            You can also{" "}
+            <Link
+              className="text-indigo-400 hover:text-indigo-500"
+              href="/auth/sign-in">
+              click here
+            </Link>{" "}
+            to redirect immediately.
+          </p>
+        ))}
     </section>
   );
 }
