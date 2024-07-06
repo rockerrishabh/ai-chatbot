@@ -110,6 +110,7 @@ function SignUpForm() {
           {isPending ? "Loading..." : "Sign Up"}
         </Button>
       </form>
+      <p className="text-center mt-4 mb-2">Or Sign Up with</p>
     </Form>
   );
 }
